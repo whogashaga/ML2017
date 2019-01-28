@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TextView info;
+    private TextView Answer;
     private Button one;
     private Button two;
     private Button three;
@@ -25,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private Button divide;
     private Button equals;
     private Button reset;
-    private TextView info;
-    private TextView result;
     private final char ADDITION = '+';
     private final char SUBTRACTION = '-';
     private final char MULTIPLICATION = 'x';
@@ -115,13 +115,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        point.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                info.setText(String.valueOf(value1)+ ".");
+            }
+        });
+
         divide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 compute();
                 ACTION = DIVISION;
-                result.setText(String.valueOf(value1)+ "÷" );
-                info.setText(null);
+                info.setText(String.valueOf(value1)+ "÷");
             }
         });
 
@@ -130,8 +136,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 compute();
                 ACTION = MULTIPLICATION;
-                result.setText(String.valueOf(value1)+ "x" );
-                info.setText(null);
+                info.setText(String.valueOf(value1)+ "x" );
             }
         });
 
@@ -140,8 +145,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 compute();
                 ACTION = SUBTRACTION;
-                result.setText(String.valueOf(value1)+ "-" );
-                info.setText(null);
+                info.setText(String.valueOf(value1)+ "-" );
             }
         });
 
@@ -150,8 +154,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 compute();
                 ACTION = ADDITION;
-                result.setText(String.valueOf(value1)+ "+" );
-                info.setText(null);
+                info.setText(String.valueOf(value1)+ "+" );
             }
         });
 
@@ -160,24 +163,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 compute();
                 ACTION = EQU;
-                result.setText(result.getText().toString() + String.valueOf(value2) + "=" + String.valueOf(value1));
-                info.setText(null);
+                Answer.setText(String.valueOf(value1));
             }
         });
 
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (info.getText().length() > 0){
-                    CharSequence name = info.getText().toString();
-                    info.setText(name.subSequence(0, name.length()-1));
-                }
-                else{
-                    value1 = Double.NaN;
-                    value2 = Double.NaN;
-                    info.setText(null);
-                    result.setText(null);
-                }
+                info.setText(null);
+                Answer.setText("0");
             }
         });
 
@@ -203,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         equals = (Button) findViewById(R.id.calculator_equals);
         reset = (Button) findViewById(R.id.calculator_reset);
         info = (TextView) findViewById(R.id.calculation);
-        result = (TextView) findViewById(R.id.finalValue);
+        Answer = (TextView) findViewById(R.id.finalValue);
 
     }
 
@@ -211,21 +205,19 @@ public class MainActivity extends AppCompatActivity {
         if(!Double.isNaN(value1)){
             value2 = Double.parseDouble(info.getText().toString());
 
-            switch (ACTION){
-                case ADDITION:
-                    value1 = value1 +value2;
-                    break;
-                case SUBTRACTION:
-                    value1 = value1 - value2;
-                    break;
-                case MULTIPLICATION:
-                    value1 = value1 * value2;
-                    break;
-                case DIVISION:
-                    value1 = value1 / value2;
-                    break;
-                case EQU:
-                    break;
+            if (ACTION == ADDITION) {
+                value1 = value1 + value2;
+
+            } else if (ACTION == SUBTRACTION) {
+                value1 = value1 - value2;
+
+            } else if (ACTION == MULTIPLICATION) {
+                value1 = value1 * value2;
+
+            } else if (ACTION == DIVISION) {
+                value1 = value1 / value2;
+
+            } else if (ACTION == EQU) {
             }
         }
         else{
