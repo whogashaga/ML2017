@@ -26,6 +26,11 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+
+import java.util.zip.Inflater;
 
 public class VisualizerActivity extends AppCompatActivity {
 
@@ -49,6 +54,19 @@ public class VisualizerActivity extends AppCompatActivity {
         mVisualizerView.setMinSizeScale(1);
         mVisualizerView.setColor(getString(R.string.pref_color_red_value));
     }
+
+    // TODO (5) Add the menu to the menu bar
+
+    @Override
+    public boolean onCreateOptionMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.visualizer_menu, menu);
+        return true;
+    }
+
+
+    // TODO (6) When the "Settings" menu item is pressed, open SettingsActivity
+
 
     /**
      * Below this point is code you do not need to modify; it deals with permissions
@@ -109,20 +127,17 @@ public class VisualizerActivity extends AppCompatActivity {
                     // The permission was denied, so we can show a message why we can't run the app
                     // and then close the app.
                 }
-            }
             // Other permissions could go down here
 
         }
     }
 
-    // TODO (1) Create a new Empty Activity named SettingsActivity; make sure to generate the
-    // activity_settings.xml layout file as well and add the activity to the manifest
+        // TODO (2) Add a new resource folder called menu and create visualizer_menu.xml
+        // TODO (3) In visualizer_menu.xml create a menu item with a single item. The id should be
+        // "action_settings", title should be saved in strings.xml, the item should never
+        // be shown as an action, and orderInCategory should be 100
 
-    // TODO (2) Add a new resource folder called menu and create visualizer_menu.xml
-    // TODO (3) In visualizer_menu.xml create a menu item with a single item. The id should be
-    // "action_settings", title should be saved in strings.xml, the item should never
-    // be shown as an action, and orderInCategory should be 100
 
-    // TODO (5) Add the menu to the menu bar
-    // TODO (6) When the "Settings" menu item is pressed, open SettingsActivity
+
+}
 }
